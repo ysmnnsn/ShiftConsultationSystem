@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Manage Departments";
+}
+
+<h2>Manage Departments</h2>
+
+<form method="post" action="/Admin/AddDepartment">
+    <div class="form-group">
+        <label for="departmentName">Department Name</label>
+        <input type="text" id="departmentName" name="departmentName" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-success">Add Department</button>
+</form>
+
+<h3>Existing Departments</h3>
+<ul>
+    @foreach (var department in Model)
+    {
+        <li>@department.DepartmentName</li>
+    }
+</ul>

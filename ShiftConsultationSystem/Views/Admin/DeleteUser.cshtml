@@ -1,0 +1,16 @@
+﻿@model ShiftConsultationSystem.Models.User
+
+<h2>Delete User</h2>
+
+<p>Are you sure you want to delete the following user?</p>
+
+<div>
+    <p><strong>Name:</strong> @Model.Name</p>
+    <p><strong>Username:</strong> @Model.Username</p>
+</div>
+
+<form asp-action="DeleteUserConfirmed" method="post">
+    <input type="hidden" name="userId" value="@Model.UserId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="ViewUsers" class="btn btn-secondary">Cancel</a>
+</form>

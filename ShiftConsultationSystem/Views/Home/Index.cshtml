@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<h2>Welcome to the Shift Consultation System</h2>
+
+@if (ViewBag.UserId == null)
+{
+        <!-- User is not logged in -->
+        <p>Please <a href="/Account/Login" class="btn btn-primary">Log in</a> to access the system.</p>
+}
+else
+{
+    var userRole = ViewBag.UserRole;
+
+    if (userRole == "admin")
+    {
+                <!-- Admin links -->
+                        <p>Welcome, @ViewBag.UserName!</p>  <!-- Personalized greeting -->
+
+                <div class="btn-group-vertical" role="group">
+                    <!-- Add User button -->
+                    <a href="/Admin/AddUser" class="btn btn-success">Add New User</a>
+
+                    <!-- View and Edit Shifts buttons -->
+                    <form asp-action="RedistributeShifts" method="post">
+    <button type="submit" class="btn btn-primary">Redistribute Shifts</button>
+    </form>
+    <a href="/Admin/ViewShifts" class="btn btn-info">View All Shifts</a>
+                    <a href="/Admin/EditShifts" class="btn btn-warning">Edit Shifts</a>
+
+                    <!-- Consultation management buttons -->
+                    <a href="/Admin/RequestConsultation" class="btn btn-info">Request Consultation</a>
+                    <a href="/Admin/ViewPendingConsultations" class="btn btn-warning">View Pending Consultations</a>
+
+                    <!-- View Past Consultations button -->
+                    <a href="/Admin/ViewConsultationHistory" class="btn btn-info">View Consultation History</a>
+
+                    <!-- Manage Departments and Hospitals buttons -->
+                    <a href="/Admin/ManageDepartments" class="btn btn-warning">Manage Departments</a>
+                    <a href="/Admin/ManageHospitals" class="btn btn-warning">Manage Hospitals</a>
+
+                    <!-- Manage Users button (for viewing and deleting users) -->
+                    <a href="/Admin/ViewUsers" class="btn btn-danger">Manage Users</a>  <!-- New Manage Users Button -->
+                </div>
+    }
+    else if (userRole == "doctor")
+    {
+                        <p>Welcome, @ViewBag.UserName!</p>  <!-- Personalized greeting -->
+
+                <div class="btn-group-vertical" role="group">
+                    <!-- View Shifts button -->
+                    <a href="/Doctor/ViewShifts" class="btn btn-primary">View Shifts</a>
+
+                    <!-- Request Consultation button -->
+                    <a href="/Doctor/RequestConsultation" class="btn btn-warning">Request Consultation</a>
+
+                    <!-- View Pending Consultations button -->
+                    <a href="/Doctor/ViewPendingConsultations" class="btn btn-warning">View Pending Consultations</a>
+
+                    <!-- View Past Consultations button -->
+                    <a href="/Doctor/ViewConsultationHistory" class="btn btn-info">View Consultation History</a>
+                </div>
+    }
+}

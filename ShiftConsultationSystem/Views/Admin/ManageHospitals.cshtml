@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Manage Hospitals";
+}
+
+<h2>Manage Hospitals</h2>
+
+<form method="post" action="/Admin/AddHospital">
+    <div class="form-group">
+        <label for="hospitalName">Hospital Name</label>
+        <input type="text" id="hospitalName" name="hospitalName" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-success">Add Hospital</button>
+</form>
+
+<h3>Existing Hospitals</h3>
+<ul>
+    @foreach (var hospital in Model)
+    {
+        <li>@hospital.HospitalName</li>
+    }
+</ul>

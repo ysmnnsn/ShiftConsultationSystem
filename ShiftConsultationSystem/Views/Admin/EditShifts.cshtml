@@ -1,0 +1,38 @@
+﻿@model List<ShiftConsultationSystem.Models.Shift> 
+
+<h2>Edit Shifts</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Assigned Doctor</th>
+            <th>Reassign Doctor/Admin</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var shift in Model)  
+        {
+            <tr>
+                <td>@shift.ShiftDate.ToString("MM/dd/yyyy")</td>  <!-- Display the shift date -->
+                <td>@(shift.User?.Name ?? "Unassigned")</td>  <!-- Display the doctor's/admin's name or "Unassigned" -->
+                <td>
+                    <!-- Reassign form for each shift -->
+                    <form method="post" action="/Admin/UpdateShift">
+                        <input type="hidden" name="shiftId" value="@shift.ShiftId" />
+                        <select name="newDoctorId" class="form-control">
+                            @foreach (var user in (List<ShiftConsultationSystem.Models.User>)ViewBag.DoctorsAndAdmins)
+                            {
+                                <option value="@user.UserId">
+                                    @user.Name
+                                </option>
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-primary">Reassign</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

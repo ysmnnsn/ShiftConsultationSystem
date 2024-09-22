@@ -1,0 +1,79 @@
+﻿@model ShiftConsultationSystem.Models.ConsultationHistoryViewModel
+
+<h2>Consultation History</h2>
+
+<h3>Requests You've Made</h3>
+@if (Model.UserRequests != null && Model.UserRequests.Count > 0)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Requesting Department</th>
+                <th>Hospital</th>
+                <th>Patient Name</th>
+                <th>Room Number</th>
+                <th>Consultation Note</th>
+                <th>Accepted By</th> <!-- Who accepted the request -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var request in Model.UserRequests)
+            {
+                <tr>
+                    <td>@request.Department?.DepartmentName</td>
+                    <td>@request.Hospital?.HospitalName</td>
+                    <td>@request.PatientName</td>
+                    <td>@request.RoomNumber</td>
+                    <td>@request.ConsultationNote</td>
+                    <td>
+                        @if (request.Acceptances != null && request.Acceptances.Count > 0)
+                        {
+                            @foreach (var acceptance in request.Acceptances)
+                            {
+                                <p>@acceptance.Doctor?.Name</p> <!-- Display the name of the doctor who accepted -->
+                            }
+                        }
+                        else
+                        {
+                            <p>Pending</p>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You haven't made any consultation requests yet.</p>
+}
+
+<h3>Consultations You've Accepted</h3>
+@if (Model.AcceptedRequests != null && Model.AcceptedRequests.Count > 0)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Requester</th>
+                <th>Patient Name</th>
+                <th>Room Number</th>
+                <th>Consultation Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var acceptance in Model.AcceptedRequests)
+            {
+                <tr>
+                    <td>@acceptance.ConsultationRequest?.Requester?.Name</td>
+                    <td>@acceptance.ConsultationRequest?.PatientName</td>
+                    <td>@acceptance.ConsultationRequest?.RoomNumber</td>
+                    <td>@acceptance.ConsultationRequest?.ConsultationNote</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You haven't accepted any consultation requests yet.</p>
+}

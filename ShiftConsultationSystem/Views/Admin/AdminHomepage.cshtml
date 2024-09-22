@@ -1,0 +1,28 @@
+﻿<h2>Admin Dashboard</h2>
+
+<p>Welcome, @ViewBag.UserName!</p>  <!-- Personalized greeting -->
+
+<div class="btn-group-vertical" role="group">
+    <!-- Add User button -->
+    <a href="/Admin/AddUser" class="btn btn-success">Add New User</a>
+
+    <!-- View and Edit Shifts buttons -->
+    <a href="/Admin/ViewShifts" class="btn btn-info">View All Shifts</a>
+    <a href="/Admin/EditShifts" class="btn btn-warning">Edit Shifts</a>
+    <form asp-action="RedistributeShifts" method="post">
+    <button type="submit" class="btn btn-primary">Redistribute Shifts</button>
+    </form>
+
+    <!-- Consultation management buttons -->
+    <a href="/Admin/RequestConsultation" class="btn btn-info">Request Consultation</a>
+    <a href="/Admin/ViewPendingConsultations" class="btn btn-warning">View Pending Consultations</a>
+    <a href="/Admin/ViewConsultationHistory" class="btn btn-info">View Consultation History</a> 
+
+
+    <!-- Manage Departments and Hospitals buttons -->
+    <a href="/Admin/ManageDepartments" class="btn btn-warning">Manage Departments</a>
+    <a href="/Admin/ManageHospitals" class="btn btn-warning">Manage Hospitals</a>
+
+    <!-- Manage Users button (for viewing and deleting users) -->
+    <a href="/Admin/ViewUsers" class="btn btn-danger">Manage Users</a>  <!-- New Manage Users Button -->
+</div>

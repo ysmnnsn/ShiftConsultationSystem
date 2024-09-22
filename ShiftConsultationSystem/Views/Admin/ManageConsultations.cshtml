@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Manage Consultation Requests";
+}
+
+<h2>Manage Consultation Requests</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Requesting Doctor</th>
+            <th>Department</th>
+            <th>Hospital</th>
+            <th>Patient Name</th>
+            <th>Room Number</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var consultation in Model)
+        {
+            <tr>
+                <td>@consultation.Requester.Username</td>
+                <td>@consultation.Department.DepartmentName</td>
+                <td>@consultation.Hospital.HospitalName</td>
+                <td>@consultation.PatientName</td>
+                <td>@consultation.RoomNumber</td>
+                <td>@(consultation.IsHandled ? "Handled" : "Pending")</td>
+            </tr>
+        }
+    </tbody>
+</table>
