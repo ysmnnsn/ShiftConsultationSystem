@@ -1,42 +1,48 @@
 ﻿@model ShiftConsultationSystem.Models.ConsultationRequest
 
-<h2>Request a Consultation</h2>
+<h2 class="text-center">Request a Consultation</h2>
 
-<form asp-action="RequestConsultation" method="post">
-    <div class="form-group">
-        <label for="PatientName">Patient Name</label>
-        <input type="text" name="patientName" class="form-control" required />
-    </div>
+<div class="container mt-5">
+    <form asp-action="RequestConsultation" method="post">
+        <div class="form-group">
+            <label for="Department">Select Department</label>
+            <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.Departments">
+                <option value="">-- Select Department --</option>
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label for="RoomNumber">Room Number</label>
-        <input type="text" name="roomNumber" class="form-control" required />
-    </div>
+        <div class="form-group">
+            <label for="Hospital">Select Hospital</label>
+            <select asp-for="HospitalId" class="form-control" asp-items="ViewBag.Hospitals">
+                <option value="">-- Select Hospital --</option>
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label for="Department">Select Department</label>
-        <select name="departmentId" class="form-control">
-            @foreach (var dept in ViewBag.Departments)
-            {
-                <option value="@dept.DepartmentId">@dept.DepartmentName</option>
-            }
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="PatientName">Patient Name</label>
+            <input type="text" asp-for="PatientName" class="form-control" />
+        </div>
 
-    <div class="form-group">
-        <label for="Hospital">Select Hospital</label>
-        <select name="hospitalId" class="form-control">
-            @foreach (var hospital in ViewBag.Hospitals)
-            {
-                <option value="@hospital.HospitalId">@hospital.HospitalName</option>
-            }
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="RoomNumber">Room Number</label>
+            <input type="text" asp-for="RoomNumber" class="form-control" />
+        </div>
 
-    <div class="form-group">
-        <label for="ConsultationNote">Note / Extra information</label>
-        <textarea name="consultationNote" class="form-control" rows="3"></textarea>
-    </div>
+        <div class="form-group">
+            <label for="ConsultationNote">Why is this consultation needed?</label>
+            <textarea asp-for="ConsultationNote" class="form-control" rows="3"></textarea>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Submit Request</button>
-</form>
+        <button type="submit" class="btn btn-primary">Request Consultation</button>
+    </form>
+
+    @if (User.IsInRole("admin"))
+    {
+        <a href="/Admin/AdminHomepage" class="btn btn-secondary">Back to Dashboard</a>
+    }
+    else if (User.IsInRole("doctor"))
+    {
+        <a href="/Doctor/DoctorHomepage" class="btn btn-secondary">Back to Dashboard</a>
+    }
+
+</div>

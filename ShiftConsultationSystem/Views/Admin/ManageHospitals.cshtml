@@ -1,21 +1,57 @@
-﻿@{
-    ViewData["Title"] = "Manage Hospitals";
-}
+﻿@model IEnumerable<ShiftConsultationSystem.Models.Hospital>
 
-<h2>Manage Hospitals</h2>
+<div class="container mt-5">
+    <h2 class="text-center text-primary">Manage Hospitals</h2>
 
-<form method="post" action="/Admin/AddHospital">
-    <div class="form-group">
-        <label for="hospitalName">Hospital Name</label>
-        <input type="text" id="hospitalName" name="hospitalName" class="form-control" required />
+    <!-- Add new hospital section -->
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+            <form asp-action="AddHospital" method="post">
+                <div class="form-group">
+                    <label for="HospitalName">New Hospital Name</label>
+                    <input type="text" name="HospitalName" class="form-control" placeholder="Enter hospital name" />
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Add Hospital</button>
+            </form>
+        </div>
     </div>
-    <button type="submit" class="btn btn-success">Add Hospital</button>
-</form>
 
-<h3>Existing Hospitals</h3>
-<ul>
-    @foreach (var hospital in Model)
+    <!-- Existing hospitals section -->
+    <div class="row mt-5">
+        <div class="col-md-8 offset-md-2">
+            <h4 class="text-info">Existing Hospitals</h4>
+            @if (Model != null && Model.Any())
+            {
+                <table class="table table-striped table-bordered mt-3">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Hospital Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var hospital in Model)
+                        {
+                            <tr>
+                                <td>@hospital.HospitalName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-center text-warning">No hospitals found.</p>
+            }
+        </div>
+    </div>
+
+    @if (User.IsInRole("admin"))
     {
-        <li>@hospital.HospitalName</li>
+        <a href="/Admin/AdminHomepage" class="btn btn-secondary">Back to Dashboard</a>
     }
-</ul>
+    else if (User.IsInRole("doctor"))
+    {
+        <a href="/Doctor/DoctorHomepage" class="btn btn-secondary">Back to Dashboard</a>
+    }
+
+</div>

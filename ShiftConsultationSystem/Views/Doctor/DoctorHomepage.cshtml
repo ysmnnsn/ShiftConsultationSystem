@@ -1,15 +1,35 @@
-﻿<h2>Doctor Dashboard</h2>
+﻿<div class="container mt-5">
+    <h2 class="text-center text-primary">Doctor Dashboard</h2>
 
-<p>Welcome, @ViewBag.UserName!</p>  <!-- Personalized greeting -->
+    <div class="row mt-4">
+        <!-- Shift Management Column -->
+        <div class="col-md-4 mb-3">
+            <h4 class="text-center">Shifts</h4>
+            <a href="/Doctor/ViewShifts" class="btn btn-primary btn-block">View Shifts</a>
+        </div>
 
-<div class="btn-group-vertical" role="group">
-    <!-- View Shifts button -->
-    <a href="/Doctor/ViewShifts" class="btn btn-primary">View Shifts</a>
+        <!-- Consultation Management Column -->
+        <div class="col-md-4 mb-3">
+            <h4 class="text-center">Consultations</h4>
+            <a href="/Doctor/RequestConsultation" class="btn btn-warning btn-block mb-2">Request Consultation</a>
+            <a href="/Doctor/ViewPendingConsultations" class="btn btn-info btn-block mb-2">View Pending Consultations</a>
+            <a href="/Doctor/ViewConsultationHistory" class="btn btn-info btn-block">View Consultation History</a>
+        </div>
 
-    <!-- Request Consultation button -->
-    <a href="/Doctor/RequestConsultation" class="btn btn-warning">Request Consultation</a>
-
-    <!-- View Pending Consultations button -->
-    <a href="/Doctor/ViewPendingConsultations" class="btn btn-warning">View Pending Consultations</a>
-    <a href="/Doctor/ViewConsultationHistory" class="btn btn-info">View Consultation History</a>
+        <!-- Authentication Buttons Section -->
+        <div class="row mt-3">
+            <div class="col-md-4 offset-md-4 text-center">
+                <h4 class="text-center">Account</h4>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
+                }
+                else
+                {
+                    <a href="/Account/Login" class="btn btn-primary btn-block">Login</a>
+                }
+            </div>
+    </div>
 </div>

@@ -1,48 +1,30 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
-
-a {
-  color: #0077cc;
-}
-
+﻿/* Muted color palette for buttons */
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    background-color: #5b8c85; /* Muted teal */
+    border-color: #5b8c85;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.btn-secondary {
+    background-color: #9a9a9a; /* Muted gray */
+    border-color: #9a9a9a;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+.btn-success {
+    background-color: #709a6e; /* Muted green */
+    border-color: #709a6e;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+.btn-danger {
+    background-color: #a36b6b; /* Muted red */
+    border-color: #a36b6b;
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+.btn-warning {
+    background-color: #b08b47; /* Muted gold */
+    border-color: #b08b47;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+.btn-info {
+    background-color: #709bb1; /* Muted blue */
+    border-color: #709bb1;
 }

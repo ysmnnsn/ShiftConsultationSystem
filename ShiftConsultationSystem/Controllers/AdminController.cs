@@ -100,8 +100,23 @@ namespace ShiftConsultationSystem.Controllers
         // Add User (Admin action)
         public IActionResult AddUser()
         {
-            ViewBag.Departments = _context.Departments.ToList();
-            ViewBag.Hospitals = _context.Hospitals.ToList();
+            // Fetch the list of departments and hospitals from the database
+            var departments = _context.Departments.ToList();
+            var hospitals = _context.Hospitals.ToList();
+
+            // Convert departments and hospitals to SelectListItem
+            ViewBag.Departments = departments.Select(d => new SelectListItem
+            {
+                Value = d.DepartmentId.ToString(),  // Use the ID as the value
+                Text = d.DepartmentName             // Use the name as the displayed text
+            }).ToList();
+
+            ViewBag.Hospitals = hospitals.Select(h => new SelectListItem
+            {
+                Value = h.HospitalId.ToString(),
+                Text = h.HospitalName
+            }).ToList();
+
             return View();
         }
 
@@ -133,9 +148,11 @@ namespace ShiftConsultationSystem.Controllers
             if (user != null)
             {
                 _context.Users.Remove(user);  // Remove the user from the database
+                DistributeShifts();
                 _context.SaveChanges();  // Save changes to the database
             }
 
+            
             return RedirectToAction("ViewUsers");  // Redirect to user list after deletion
         }
 
@@ -348,12 +365,26 @@ namespace ShiftConsultationSystem.Controllers
         [HttpGet]
         public IActionResult RequestConsultation()
         {
-            // Populate ViewBag with dropdown options for departments and hospitals
-            ViewBag.Departments = _context.Departments.ToList();
-            ViewBag.Hospitals = _context.Hospitals.ToList();
+            // Fetch the list of departments and hospitals from the database
+            var departments = _context.Departments.ToList();
+            var hospitals = _context.Hospitals.ToList();
 
-            return View();  // Return the form for requesting a consultation
+            // Convert departments and hospitals to SelectListItem
+            ViewBag.Departments = departments.Select(d => new SelectListItem
+            {
+                Value = d.DepartmentId.ToString(),  // Use DepartmentId as the value
+                Text = d.DepartmentName             // Use DepartmentName as the display text
+            }).ToList();
+
+            ViewBag.Hospitals = hospitals.Select(h => new SelectListItem
+            {
+                Value = h.HospitalId.ToString(),  // Use HospitalId as the value
+                Text = h.HospitalName             // Use HospitalName as the display text
+            }).ToList();
+
+            return View();
         }
+
 
         // POST: Handle the submission of the consultation request form
         [HttpPost]

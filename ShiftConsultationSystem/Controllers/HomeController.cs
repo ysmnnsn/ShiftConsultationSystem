@@ -33,17 +33,20 @@ namespace ShiftConsultationSystem.Controllers
             userRole = User.FindFirst(ClaimTypes.Role)?.Value;
         }
 
-        // Redirect based on user role
-        if (userRole == "admin")
-        {
-            return RedirectToAction("AdminHomepage", "Admin");
-        }
-        else if (userRole == "doctor")
-        {
-            return RedirectToAction("DoctorHomepage", "Doctor");
-        }
-            // If the user role is unknown or missing, return an error or redirect to a fallback page
-            return RedirectToAction("Login", "Account");  // Fallback: redirect to login or show an error
+            // Check if the user is authenticated
+            if (User.Identity.IsAuthenticated)
+            {
+                var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+                // Redirect to the correct dashboard based on role
+                if (role == "admin")
+                    return RedirectToAction("AdminHomepage", "Admin");
+                else if (role == "doctor")
+                    return RedirectToAction("DoctorHomepage", "Doctor");
+            }
+
+            // If the user is not authenticated, redirect to the login page
+            return RedirectToAction("Login", "Account");
         }
 
         public IActionResult Privacy()
